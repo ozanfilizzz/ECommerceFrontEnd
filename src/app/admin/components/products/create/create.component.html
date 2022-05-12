@@ -1,0 +1,17 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Product Name</mat-label>
+    <input matInput placeholder="Example Product" value="" #txtProductName>
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>UnitInStock</mat-label>
+    <input matInput type="number" placeholder="" min="0" value="" #txtUnitInStock>
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" placeholder="" min="0" value="" #txtPrice>
+  </mat-form-field>
+  <button mat-raised-button class="example-button-row" color="primary" (click)="create(txtProductName,txtPrice,txtUnitInStock)" >Create Product</button>
+</form>
