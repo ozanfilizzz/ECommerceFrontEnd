@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { CreateProduct } from 'src/app/contracts/create_product';
@@ -18,6 +19,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  @Output() createdProduct : EventEmitter<CreateProduct> = new EventEmitter
 
   create(productName: HTMLInputElement, unitInStock: HTMLInputElement, price: HTMLInputElement){
     this.showSpinner(SpinnerType.pacman);
@@ -28,11 +30,19 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
     this.productService.create(createProduct, () => {
       this.hideSpinner(SpinnerType.pacman);
-      this.alertify.message("SuccessFul", {
+      this.alertify.message("Successful", {
         dismissOthers:true,
         messageType: MessageType.Success,
         position:Position.TopRight
-      })
+      });
+      this.createdProduct.emit(createProduct);
+    }, errorMessage => {
+        this.alertify.message(errorMessage,
+        {
+          dismissOthers: true,
+          messageType: MessageType.Error,
+          position: Position.TopRight
+        });
     });
   }
 
